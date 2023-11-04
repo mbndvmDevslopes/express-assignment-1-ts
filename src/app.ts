@@ -43,15 +43,22 @@ app.delete("/dogs/:id", (req, res) => {
   const id = parseInt(req.params.id);
 });
 
-app.patch("/dogs/:id", (req, res) => {
+app.patch("/dogs/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const body = req.body;
-  const updatedDog = prisma.dog.update({
-    where: {
-      id,
-    },
-    data: body,
-  });
+  console.log(req.body)
+   if (req.body.name || req.body.description || req.body.breed || req.body.age) {
+   
+     const updatedDog = await prisma.dog.update({
+       where: {
+         id,
+       },
+       data: body,
+     });
+  } 
+  else {
+    return  res.status(500).send({message:`${req.body} is not a valid key`})
+  }
 });
 app.use(errorHandleMiddleware);
 
