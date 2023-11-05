@@ -2,7 +2,6 @@ import express, { Request, Response } from "express";
 import { prisma } from "../prisma/prisma-instance";
 import { errorHandleMiddleware } from "./error-handler";
 import "express-async-errors";
-import e from "express";
 
 const app = express();
 app.use(express.json());
